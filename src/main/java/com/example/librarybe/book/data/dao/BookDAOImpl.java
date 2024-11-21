@@ -2,6 +2,7 @@ package com.example.librarybe.book.data.dao;
 
 import com.example.librarybe.book.data.entity.Book;
 import com.example.librarybe.book.data.repository.BookRepository;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,10 @@ public class BookDAOImpl implements BookDAO {
   @Override
   public Book getBook(long id) {
     return bookRepository.findById(id)
-        .orElseThrow(()-> new IllegalArgumentException("Book not found"));
-  };
+        .orElseThrow(() -> new EntityNotFoundException("Book not found"));
+  }
+
+
 
   @Override
   public Book addBook(Book book) {
@@ -30,8 +33,7 @@ public class BookDAOImpl implements BookDAO {
 
   @Override
   public Book updateBook(Long id, Book book) {
-    Book updateBook = bookRepository.findById(id)
-        .orElseThrow(()->new IllegalArgumentException("book not found"));
+    Book updateBook = this.getBook(id);
 
     updateBook.setTitle(book.getTitle());
     updateBook.setAuthor(book.getAuthor());
@@ -39,12 +41,17 @@ public class BookDAOImpl implements BookDAO {
     updateBook.setDescription(book.getDescription());
     updateBook.setRented(book.isRented());
 
-    return bookRepository.save(updateBook);
+    return updateBook;
   }
 
   @Override
   public void deleteBook(Long id) {
     bookRepository.deleteById(id);
+  }
+
+  @Override
+  public List<Book> getAllBooksByCategory(Long categoryId) {
+    return bookRepository.findByCategory(categoryId);
   }
 
 }

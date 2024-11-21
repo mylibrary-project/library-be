@@ -2,7 +2,6 @@ package com.example.librarybe.book.data.dao;
 
 import com.example.librarybe.book.data.entity.Book;
 import java.util.List;
-import org.springframework.stereotype.Service;
 
 
 public interface BookDAO {
@@ -16,4 +15,6 @@ public interface BookDAO {
   Book updateBook(Long id, Book book);
 
   void deleteBook(Long id);
+
+  List<Book> getAllBooksByCategory(Long categoryId);
 }

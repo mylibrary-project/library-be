@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookService {
 
-  List<BookDTO> getAllBooks();
+  List<BookDTO> getAllBooks(Long categoryId);
 
   BookDTO getBook(long id);
 
@@ -42,4 +42,5 @@ public interface BookService {
         .imgsrc("http://via.placeholder.com/150x150/00ff00")
         .build();
   }
+
 }

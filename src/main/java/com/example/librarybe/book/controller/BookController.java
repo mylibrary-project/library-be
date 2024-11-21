@@ -3,6 +3,7 @@ package com.example.librarybe.book.controller;
 import com.example.librarybe.book.data.dto.BookDTO;
 import com.example.librarybe.book.exception.CustomException;
 import com.example.librarybe.book.service.BookService;
+import com.example.librarybe.category.service.CategoryService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -23,10 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
 
   private final BookService bookService;
+  private final CategoryService categoryService;
 
+  // /api/books?categoryId=1
   @GetMapping
-  public ResponseEntity<List<BookDTO>> getAllBooks() {
-    return ResponseEntity.ok(bookService.getAllBooks());
+  public ResponseEntity<List<BookDTO>> getAllBooks(@RequestParam(required = false) Long categoryId) {
+    return ResponseEntity.ok(bookService.getAllBooks(categoryId));
   }
 
   @GetMapping("/{id}")
@@ -63,7 +67,8 @@ public class BookController {
     } catch (Exception e) {
       throw new CustomException("Book delete failed");
     }
-
   }
+
+
 
 }

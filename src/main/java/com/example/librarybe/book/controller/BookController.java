@@ -28,6 +28,12 @@ public class BookController {
   private final CategoryService categoryService;
 
   // /api/books?categoryId=1
+
+  /**
+   * 전체 목록, 카테고리 별 목록 출력
+   * @param categoryId
+   * @return 전체 목록, 카테고리 별 목록
+   */
   @GetMapping
   public ResponseEntity<List<BookDTO>> getAllBooks(@RequestParam(required = false) Long categoryId) {
     return ResponseEntity.ok(bookService.getAllBooks(categoryId));

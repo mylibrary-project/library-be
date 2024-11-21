@@ -8,6 +8,11 @@ import org.springframework.data.repository.query.Param;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
+  /**
+   * book에 있는 category_id값 찾기
+   * @param categoryId
+   * @return category_id
+   */
   @Query("select b from Book b where b.category.id = :categoryId")
   List<Book> findByCategory(@Param("categoryId") Long categoryId);
 

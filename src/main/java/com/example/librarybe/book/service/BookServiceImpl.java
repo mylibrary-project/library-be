@@ -55,7 +55,7 @@ public class BookServiceImpl implements BookService {
         ? categoryDAO.getAllCategories(null).stream()
         .filter(e -> e.getId().equals(bookDTO.getCategoryId()))
         .findFirst()
-        .orElseThrow(()-> new IllegalArgumentException("Category not found"))
+        .orElseThrow(()-> new EntityNotFoundException("Category not found"))
         : null;
 
     Book book = toEntity(bookDTO);
@@ -72,7 +72,7 @@ public class BookServiceImpl implements BookService {
         ? categoryDAO.getAllCategories(null).stream()
         .filter(e -> e.getId().equals(bookDTO.getCategoryId()))
         .findFirst()
-        .orElseThrow(()-> new IllegalArgumentException("Category not found"))
+        .orElseThrow(()-> new EntityNotFoundException("Category not found"))
         : null;
 
     Book existingBook = bookDAO.getBook(id);

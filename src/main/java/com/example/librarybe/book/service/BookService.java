@@ -6,14 +6,39 @@ import java.util.List;
 
 public interface BookService {
 
+  /**
+   * 모든 책 정보 보내기
+   * @param categoryId
+   * @return 모든 책 정보
+   */
   List<BookDTO> getAllBooks(Long categoryId);
 
+  /**
+   * 책 한권 정보 보내기
+   * @param id
+   * @return 책 한권 정보
+   */
   BookDTO getBook(long id);
 
+  /**
+   * 책 추가 하기
+   * @param bookDTO
+   * @return title, author, desc, publisher, categoryId
+   */
   BookDTO createBook(BookDTO bookDTO);
 
+  /**
+   * 책 정보 수정하기
+   * @param id
+   * @param bookDTO
+   * @return 수정된 책 정보
+   */
   BookDTO updateBook(long id, BookDTO bookDTO);
 
+  /**
+   * 책 삭제
+   * @param id
+   */
   void deleteBook(long id);
 
   // entity -> dto

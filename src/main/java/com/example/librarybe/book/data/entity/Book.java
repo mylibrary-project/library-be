@@ -14,15 +14,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
+@Data
 @Entity
 @Builder
 @Table(name = "books")
@@ -32,6 +30,7 @@ public class Book {
   private Long id;
 
   @NotEmpty(message = "이름은 비어있을 수 없습니다")
+  @Size(min = 1)
   private String title;
 
   @ColumnDefault("fault")
@@ -39,14 +38,16 @@ public class Book {
   private boolean rented;
 
   @NotNull(message = "저자는 비어있을 수 없습니다")
+  @Size(min = 1)
   private String author;
 
   private String imgsrc;
 
   @NotNull(message = "출판사는 비어있을 수 없습니다")
+  @Size(min = 1)
   private String publisher;
 
-  @Size(max = 100)
+  @Size(min= 5, max = 200)
   private String description;
 
   @ManyToOne

@@ -3,6 +3,7 @@ package com.example.librarybe.category.data.repository;
 import com.example.librarybe.category.data.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
@@ -12,5 +13,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
    * @return categoryName
    */
   @Query("select c from Category c left join fetch c.books where c.name = :name")
-  Category findByNameWithBooks(String name);
+  Category findByNameWithBooks(@Param("name") String name);
 }

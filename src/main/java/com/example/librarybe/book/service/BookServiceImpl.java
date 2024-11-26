@@ -44,12 +44,16 @@ public class BookServiceImpl implements BookService {
   @Transactional(readOnly = true)
   @Override
   public BookDTO getBook(long id) {
+
+    log.info("getBook start... ");
     Book book = bookDAO.getBook(id);
     return toDTO(book);
   }
 
   @Override
   public BookDTO createBook(BookDTO bookDTO) {
+
+    log.info("createBook start... ");
 
     Category category = bookDTO.getCategoryId() != null
         ? categoryDAO.getAllCategories(null).stream()
@@ -68,6 +72,8 @@ public class BookServiceImpl implements BookService {
   @Override
   public BookDTO updateBook(long id, BookDTO bookDTO) {
 
+    log.info("updateBook start... ");
+
     Category category = bookDTO.getCategoryId() != null
         ? categoryDAO.getAllCategories(null).stream()
         .filter(e -> e.getId().equals(bookDTO.getCategoryId()))
@@ -77,11 +83,20 @@ public class BookServiceImpl implements BookService {
 
     Book existingBook = bookDAO.getBook(id);
 
+    String imageUrl = switch (bookDTO.getCategoryId().intValue())
+    { case 1 -> "https://via.placeholder.com/150x150/000080";
+      case 2 -> "https://via.placeholder.com/150x150/00FF00";
+      case 3 -> "https://via.placeholder.com/150x150/0000FF";
+      case 4 -> "https://via.placeholder.com/150x150/FFFF00";
+      default -> "https://via.placeholder.com/150x150/CCCCCC";
+    };
+
     existingBook.setTitle(bookDTO.getTitle());
     existingBook.setAuthor(bookDTO.getAuthor());
     existingBook.setDescription(bookDTO.getDescription());
     existingBook.setPublisher(bookDTO.getPublisher());
     existingBook.setCategory(category);
+    existingBook.setImgsrc(imageUrl);
 
     Book resultBook = bookDAO.updateBook(id, existingBook);
     return toDTO(resultBook);
@@ -89,6 +104,14 @@ public class BookServiceImpl implements BookService {
 
   @Override
   public void deleteBook(long id) {
+    log.info("deleteBook start... ");
     bookDAO.deleteBook(id);
   }
+
+  @Override
+  public List<BookDTO> searchBook(String title) {
+    List<Book> bookList = bookDAO.searchBook(title);
+    return bookList.stream().map(this::toDTO).toList();
+  }
+
 }

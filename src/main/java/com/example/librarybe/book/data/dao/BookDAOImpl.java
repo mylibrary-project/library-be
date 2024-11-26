@@ -24,8 +24,6 @@ public class BookDAOImpl implements BookDAO {
         .orElseThrow(() -> new EntityNotFoundException("Book not found"));
   }
 
-
-
   @Override
   public Book addBook(Book book) {
     return bookRepository.save(book);
@@ -52,6 +50,11 @@ public class BookDAOImpl implements BookDAO {
   @Override
   public List<Book> getAllBooksByCategory(Long categoryId) {
     return bookRepository.findByCategory(categoryId);
+  }
+
+  @Override
+  public List<Book> searchBook(String title) {
+    return bookRepository.searchBook(title);
   }
 
 }

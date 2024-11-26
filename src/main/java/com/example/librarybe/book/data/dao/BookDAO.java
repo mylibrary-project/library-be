@@ -46,4 +46,8 @@ public interface BookDAO {
    * @return 카테고리 별 모든 책 정보
    */
   List<Book> getAllBooksByCategory(Long categoryId);
+
+  List<Book> searchBook(String title);
+
+
 }

@@ -36,7 +36,12 @@ public class BookController {
    */
   @GetMapping
   public ResponseEntity<List<BookDTO>> getAllBooks(@RequestParam(required = false) Long categoryId) {
-    return ResponseEntity.ok(bookService.getAllBooks(categoryId));
+    try {
+      return ResponseEntity.ok(bookService.getAllBooks(categoryId));
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new CustomException("Books not found");
+    }
   }
 
   @GetMapping("/{id}")
@@ -44,14 +49,31 @@ public class BookController {
     try {
       return ResponseEntity.ok(bookService.getBook(id));
     } catch (Exception e) {
+      e.printStackTrace();
+      throw new CustomException("Book not found");
+    }
+  }
+
+  @GetMapping("/search-book/title")
+  public ResponseEntity<List<BookDTO>> search(@RequestParam(required = false) String title) {
+    try {
+      List<BookDTO> bookDTOList = bookService.searchBook(title);
+      return ResponseEntity.status(HttpStatus.OK).body(bookDTOList);
+    } catch (Exception e) {
+      e.printStackTrace();
       throw new CustomException("Book not found");
     }
   }
 
   @PostMapping
   public ResponseEntity<BookDTO> createBook(@Valid @RequestBody BookDTO bookDTO) {
-    BookDTO createdBook = bookService.createBook(bookDTO);
-    return ResponseEntity.status(HttpStatus.CREATED).body(createdBook);
+    try {
+      BookDTO createdBook = bookService.createBook(bookDTO);
+      return ResponseEntity.status(HttpStatus.CREATED).body(createdBook);
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new CustomException("Book creation failed");
+    }
   }
 
   @PutMapping("/{id}")
@@ -60,9 +82,9 @@ public class BookController {
       BookDTO updatedBook = bookService.updateBook(id, bookDTO);
       return ResponseEntity.status(HttpStatus.OK).body(updatedBook);
     } catch (Exception e) {
+      e.printStackTrace();
       throw new CustomException("Book update failed");
     }
-
   }
 
   @DeleteMapping("/{id}")
@@ -71,6 +93,7 @@ public class BookController {
       bookService.deleteBook(id);
       return ResponseEntity.status(HttpStatus.OK).build();
     } catch (Exception e) {
+      e.printStackTrace();
       throw new CustomException("Book delete failed");
     }
   }

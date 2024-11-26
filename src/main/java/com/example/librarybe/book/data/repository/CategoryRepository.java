@@ -1,6 +1,6 @@
-package com.example.librarybe.category.data.repository;
+package com.example.librarybe.book.data.repository;
 
-import com.example.librarybe.category.data.entity.Category;
+import com.example.librarybe.book.data.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

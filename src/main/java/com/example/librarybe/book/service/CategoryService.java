@@ -1,7 +1,7 @@
-package com.example.librarybe.category.service;
+package com.example.librarybe.book.service;
 
-import com.example.librarybe.category.data.dto.CategoryDTO;
-import com.example.librarybe.category.data.entity.Category;
+import com.example.librarybe.book.data.dto.CategoryDTO;
+import com.example.librarybe.book.data.entity.Category;
 import java.util.List;
 
 public interface CategoryService {

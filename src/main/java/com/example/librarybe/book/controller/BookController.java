@@ -3,7 +3,7 @@ package com.example.librarybe.book.controller;
 import com.example.librarybe.book.data.dto.BookDTO;
 import com.example.librarybe.book.exception.CustomException;
 import com.example.librarybe.book.service.BookService;
-import com.example.librarybe.category.service.CategoryService;
+import com.example.librarybe.book.service.CategoryService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

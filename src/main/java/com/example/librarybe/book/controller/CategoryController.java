@@ -1,7 +1,7 @@
-package com.example.librarybe.category.controller;
+package com.example.librarybe.book.controller;
 
-import com.example.librarybe.category.data.dto.CategoryDTO;
-import com.example.librarybe.category.service.CategoryService;
+import com.example.librarybe.book.data.dto.CategoryDTO;
+import com.example.librarybe.book.service.CategoryService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

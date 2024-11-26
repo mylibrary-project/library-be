@@ -1,4 +1,4 @@
-package com.example.librarybe.category.data.dto;
+package com.example.librarybe.book.data.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
-package com.example.librarybe.category.data.dao;
+package com.example.librarybe.book.data.dao;
 
-import com.example.librarybe.category.data.entity.Category;
-import com.example.librarybe.category.data.repository.CategoryRepository;
+import com.example.librarybe.book.data.entity.Category;
+import com.example.librarybe.book.data.repository.CategoryRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

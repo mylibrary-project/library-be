@@ -1,6 +1,5 @@
-package com.example.librarybe.category.data.entity;
+package com.example.librarybe.book.data.entity;
 
-import com.example.librarybe.book.data.entity.Book;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

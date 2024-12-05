@@ -9,6 +9,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class BookController {
    * @return 전체 목록, 카테고리 별 목록
    */
   @GetMapping
+  @PreAuthorize("permitAll()")
   public ResponseEntity<List<BookDTO>> getAllBooks(@RequestParam(required = false) Long categoryId) {
     try {
       return ResponseEntity.ok(bookService.getAllBooks(categoryId));
@@ -44,6 +46,7 @@ public class BookController {
     }
   }
 
+  @PreAuthorize("permitAll()")
   @GetMapping("/{id}")
   public ResponseEntity<BookDTO> detail(@PathVariable long id) {
     try {
@@ -65,6 +68,7 @@ public class BookController {
     }
   }
 
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PostMapping
   public ResponseEntity<BookDTO> createBook(@Valid @RequestBody BookDTO bookDTO) {
     try {
@@ -76,6 +80,7 @@ public class BookController {
     }
   }
 
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   @PutMapping("/{id}")
   public ResponseEntity<BookDTO> updateBook(@Valid @PathVariable long id, @RequestBody BookDTO bookDTO) {
     try {
@@ -87,6 +92,7 @@ public class BookController {
     }
   }
 
+  @PreAuthorize("hasRole('ROLE_ADMIN')")
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteBook(@PathVariable long id) {
     try {

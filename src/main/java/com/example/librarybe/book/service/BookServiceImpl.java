@@ -50,6 +50,7 @@ public class BookServiceImpl implements BookService {
     return toDTO(book);
   }
 
+  @Transactional
   @Override
   public BookDTO createBook(BookDTO bookDTO) {
 
@@ -69,6 +70,7 @@ public class BookServiceImpl implements BookService {
     return toDTO(saveBook);
   }
 
+  @Transactional
   @Override
   public BookDTO updateBook(long id, BookDTO bookDTO) {
 
@@ -102,12 +104,14 @@ public class BookServiceImpl implements BookService {
     return toDTO(resultBook);
   }
 
+  @Transactional
   @Override
   public void deleteBook(long id) {
     log.info("deleteBook start... ");
     bookDAO.deleteBook(id);
   }
 
+  @Transactional
   @Override
   public List<BookDTO> searchBook(String title) {
     List<Book> bookList = bookDAO.searchBook(title);

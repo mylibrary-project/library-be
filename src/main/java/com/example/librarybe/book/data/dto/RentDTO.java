@@ -10,16 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDTO {
+public class RentDTO {
 
-  private long id;
-  private String name;
-  private String username;
-  private String password;
-  private String phoneNumber;
-  private LocalDate birthday;
-  private enum UserRole{
-    ADMIN,
-    USER
-  };
+  private Long id;
+  private Long bookId;
+  private Long userId;
+  private LocalDate startDate;
+  private LocalDate endDate;
+  private boolean active;
+  private int extensionCount;
+
 }

@@ -32,14 +32,14 @@ public class RentServiceImpl implements RentService {
   private static final int EXTENSION_PERIOD_DAYS = 7;
 
   @Transactional
-  public RentDTO rentBook(Long bookId, Long userId) {
+  public RentDTO rentBook(Long bookId, String username) {
     Book book = bookDAO.getBook(bookId);
 
     if(book.isRented()) {
       throw new BookAlreadyRentedException("Book is already rented");
     }
 
-    User user = userDAO.getUser(userId);
+    User user = userDAO.getUserIdByUsername(username);
 
     Rent rent = Rent.builder()
         .book(book)

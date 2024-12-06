@@ -23,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
   private final UserDAO userDAO;
-  private final UserRepository userRepository;
 
   @Transactional(readOnly = true)
   @Override
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-    Optional<User> user = userRepository.findByUsername(username);
+    Optional<User> user = userDAO.findByUsername(username);
     if(user.isEmpty()) {
       throw new UsernameNotFoundException("User " + username + " not found");
     }

@@ -2,6 +2,9 @@ package com.example.librarybe.book.data.repository;
 
 import com.example.librarybe.book.data.entity.Book;
 import java.util.List;
+import org.aspectj.weaver.patterns.TypePatternQuestions.Question;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +21,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
   @Query("select b from Book b where b.title like %:title%")
   List<Book> searchBook(@Param("title") String title);
+
+  Page<Book> findAll(Pageable pageable);
 }

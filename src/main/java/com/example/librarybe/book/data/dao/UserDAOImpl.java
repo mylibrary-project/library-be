@@ -26,4 +26,10 @@ public class UserDAOImpl implements UserDAO {
   public Optional<User> findByUsername(String username) {
     return userRepository.findByUsername(username);
   }
+
+  @Override
+  public User getUserIdByUsername(String username) {
+    Long userId = userRepository.findIdByUsername(username);
+    return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+  }
 }

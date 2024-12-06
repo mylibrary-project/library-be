@@ -2,6 +2,8 @@ package com.example.librarybe.book.data.dao;
 
 import com.example.librarybe.book.data.entity.Book;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 
 public interface BookDAO {
@@ -48,6 +50,8 @@ public interface BookDAO {
   List<Book> getAllBooksByCategory(Long categoryId);
 
   List<Book> searchBook(String title);
+
+  Page<Book> findAll(Pageable pageable);
 
 
 }

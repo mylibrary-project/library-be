@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RentService {
 
-  RentDTO rentBook(Long bookId, Long userId);
+  RentDTO rentBook(Long bookId, String username);
 
   RentDTO returnBook(Long rentId);
 

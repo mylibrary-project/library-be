@@ -12,4 +12,5 @@ public interface UserDAO {
 
   Optional<User> findByUsername(String username);
 
+  User getUserIdByUsername(String username);
 }

@@ -5,6 +5,8 @@ import com.example.librarybe.book.data.repository.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -55,6 +57,11 @@ public class BookDAOImpl implements BookDAO {
   @Override
   public List<Book> searchBook(String title) {
     return bookRepository.searchBook(title);
+  }
+
+  @Override
+  public Page<Book> findAll(Pageable pageable) {
+    return bookRepository.findAll(pageable);
   }
 
 }

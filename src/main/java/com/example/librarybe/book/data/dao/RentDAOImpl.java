@@ -19,9 +19,11 @@ public class RentDAOImpl implements RentDAO {
   }
 
   @Override
-  public Rent getRentById(Long id) {
-    return rentRepository.findById(id)
-        .orElseThrow(() -> new EntityNotFoundException("rentCode not found: " + id));
+  public Rent getRentByBookId(Long bookId) {
+    Long rentId = rentRepository.findByRentIdFromBookId(bookId);
+    return rentRepository.findById(rentId)
+        .orElseThrow(() -> new RuntimeException("Rent not found"));
+
   }
 
   @Override
@@ -35,7 +37,7 @@ public class RentDAOImpl implements RentDAO {
   }
 
   @Override
-  public List<Rent> findByUser_Id(Long id) {
-    return rentRepository.findByUser_Id(id);
+  public List<Rent> findByUser_Id(String username) {
+    return rentRepository.findByUser_Id(username);
   }
 }

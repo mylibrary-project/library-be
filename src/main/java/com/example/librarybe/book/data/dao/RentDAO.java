@@ -7,11 +7,11 @@ public interface RentDAO {
 
   Rent save(Rent rent);
 
-  Rent getRentById(Long id);
+  Rent getRentByBookId(Long bookId);
 
   Rent addRent(Rent rent);
 
   void deleteRentById(Long id);
 
-  List<Rent> findByUser_Id(Long id);
+  List<Rent> findByUser_Id(String username);
 }

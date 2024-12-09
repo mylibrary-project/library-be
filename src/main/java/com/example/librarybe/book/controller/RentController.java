@@ -31,23 +31,23 @@ public class RentController {
   }
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-  @PostMapping("/return/{rentId}")
-  public ResponseEntity<RentDTO> returnBook(@PathVariable Long rentId) {
-    RentDTO rentDTO = rentService.returnBook(rentId);
+  @PostMapping("/return/{bookid}")
+  public ResponseEntity<RentDTO> returnBook(@PathVariable Long bookid) {
+    RentDTO rentDTO = rentService.returnBook(bookid);
     return ResponseEntity.ok(rentDTO);
   }
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-  @PostMapping("/extend/{rentId}")
-  public ResponseEntity<RentDTO> extendRental(@PathVariable Long rentId) {
-    RentDTO rentDTO = rentService.extendRental(rentId);
+  @PostMapping("/extend")
+  public ResponseEntity<RentDTO> extendRental(@RequestParam Long bookId) {
+    RentDTO rentDTO = rentService.extendRental(bookId);
     return ResponseEntity.ok(rentDTO);
   }
 
   @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
-  @GetMapping("/user/{userId}")
-  public ResponseEntity<List<RentDTO>> getUserRentals(@PathVariable Long userId) {
-    List<RentDTO> rentDTOs = rentService.getUserRentals(userId);
+  @GetMapping("/user")
+  public ResponseEntity<List<RentDTO>> getUserRentals(@RequestParam String username) {
+    List<RentDTO> rentDTOs = rentService.getUserRentals(username);
     return ResponseEntity.ok(rentDTOs);
   }
 }

@@ -9,11 +9,11 @@ public interface RentService {
 
   RentDTO rentBook(Long bookId, String username);
 
-  RentDTO returnBook(Long rentId);
+  RentDTO returnBook(Long bookId);
 
-  RentDTO extendRental(Long rentId);
+  RentDTO extendRental(Long bookId);
 
-  List<RentDTO> getUserRentals(Long userId);
+  List<RentDTO> getUserRentals(String username);
 
   default RentDTO toDTO(Rent rent) {
     return RentDTO.builder()

@@ -39,6 +39,8 @@ public class RentServiceImpl implements RentService {
       throw new BookAlreadyRentedException("Book is already rented");
     }
 
+    book.setRented(true);
+
     User user = userDAO.getUserIdByUsername(username);
 
     Rent rent = Rent.builder()
@@ -54,8 +56,8 @@ public class RentServiceImpl implements RentService {
   }
 
   @Transactional
-  public RentDTO returnBook(Long rentId) {
-    Rent rent = rentDAO.getRentById(rentId);
+  public RentDTO returnBook(Long bookId) {
+    Rent rent = rentDAO.getRentByBookId(bookId);
 
     Book book = rent.getBook();
     book.setRented(false);
@@ -67,8 +69,8 @@ public class RentServiceImpl implements RentService {
   }
 
   @Transactional
-  public RentDTO extendRental(Long rentId) {
-    Rent rent = rentDAO.getRentById(rentId);
+  public RentDTO extendRental(Long bookId) {
+    Rent rent = rentDAO.getRentByBookId(bookId);
 
     if(rent.getExtensionCount() >= MAX_EXTENSION_LIMIT) {
       throw new MaxExtensionLimitReachedException("Maximum extension limit reached");
@@ -81,8 +83,9 @@ public class RentServiceImpl implements RentService {
     return toDTO(updatedRent);
   }
 
-  public List<RentDTO> getUserRentals(Long userId) {
-    List<Rent> userRentals = rentDAO.findByUser_Id(userId);
+  @Transactional(readOnly = true)
+  public List<RentDTO> getUserRentals(String username) {
+    List<Rent> userRentals = rentDAO.findByUser_Id(username);
     return userRentals.stream()
         .map(this::toDTO)
         .collect(Collectors.toList());

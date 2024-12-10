@@ -2,6 +2,7 @@ package com.example.librarybe.book.service;
 
 import com.example.librarybe.book.data.dto.BookDTO;
 import com.example.librarybe.book.data.entity.Book;
+import com.example.librarybe.book.page.PageResponse;
 import java.util.List;
 
 public interface BookService {
@@ -42,6 +43,8 @@ public interface BookService {
   void deleteBook(long id);
 
   List<BookDTO> searchBook(String title);
+
+  PageResponse searchAllPaging(int pageNo, int pageSize, String sortBy);
 
   // entity -> dto
   default BookDTO toDTO(Book book) {

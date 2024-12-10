@@ -5,14 +5,18 @@ import com.example.librarybe.book.data.dto.BookDTO;
 import com.example.librarybe.book.data.entity.Book;
 import com.example.librarybe.book.data.dao.CategoryDAO;
 import com.example.librarybe.book.data.entity.Category;
+import com.example.librarybe.book.data.repository.BookRepository;
 import com.example.librarybe.book.data.repository.CategoryRepository;
+import com.example.librarybe.book.page.PageResponse;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +29,7 @@ public class BookServiceImpl implements BookService {
   private final BookDAO bookDAO;
   private final CategoryDAO categoryDAO;
   private final CategoryRepository categoryRepository;
+  private final BookRepository bookRepository;
 
   @Transactional(readOnly = true)
   @Override
@@ -119,6 +124,30 @@ public class BookServiceImpl implements BookService {
   public List<BookDTO> searchBook(String title) {
     List<Book> bookList = bookDAO.searchBook(title);
     return bookList.stream().map(this::toDTO).toList();
+  }
+
+  @Override
+  public PageResponse searchAllPaging(int pageNo, int pageSize, String sortBy) {
+
+    // create Pageable instance
+    Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+    Page<Book> bookPage = bookRepository.findAll(pageable);
+
+    // .map()을 더 추가해서 바로 Page<TodoResponse> 값으로 시작할 수 있어!
+    // Page<TodoResponse> todoDtoPage = todoRepository.findAll(pageable).map(this::mapToDto);
+
+    List<Book> bookList = bookPage.getContent();
+
+    List<BookDTO> content = bookList.stream().map(this::toDTO).collect(Collectors.toList());
+
+    return PageResponse.builder()
+        .content(content)	// todoDtoPage.getContent()
+        .pageNo(pageNo)
+        .pageSize(pageSize)
+        .totalElements(bookPage.getTotalElements())
+        .totalPages(bookPage.getTotalPages())
+        .last(bookPage.isLast())
+        .build();
   }
 
 }

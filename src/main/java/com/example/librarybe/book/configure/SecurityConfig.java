@@ -52,7 +52,7 @@ public class SecurityConfig {
             authorize.requestMatchers("/", "/api/users/join", "/login",
                     "/api/books/search-book/title/**",
                     "/api/books", "/api/categories",
-                    "/reissue")
+                    "/reissue","/api/books/paged")
                 .permitAll()
                 .requestMatchers("/api/rents/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated()

@@ -2,6 +2,7 @@ package com.example.librarybe.book.controller;
 
 import com.example.librarybe.book.data.dto.BookDTO;
 import com.example.librarybe.book.exception.CustomException;
+import com.example.librarybe.book.page.PageResponse;
 import com.example.librarybe.book.service.BookService;
 import com.example.librarybe.book.service.CategoryService;
 import jakarta.validation.Valid;
@@ -104,6 +105,14 @@ public class BookController {
     }
   }
 
-
+  @PreAuthorize("permitAll()")
+  @GetMapping("/paged")
+  public PageResponse readAllPaging(
+      @RequestParam(value = "pageNo",defaultValue = "0", required = false) int pageNo,
+      @RequestParam(value = "pageSize", defaultValue = "8", required = false) int pageSize,
+      @RequestParam(value = "sortBy", defaultValue = "id", required = false) String sortBy
+  ) {
+    return bookService.searchAllPaging(pageNo, pageSize, sortBy);
+  }
 
 }

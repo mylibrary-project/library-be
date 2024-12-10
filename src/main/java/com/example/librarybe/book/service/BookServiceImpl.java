@@ -133,15 +133,12 @@ public class BookServiceImpl implements BookService {
     Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
     Page<Book> bookPage = bookRepository.findAll(pageable);
 
-    // .map()을 더 추가해서 바로 Page<TodoResponse> 값으로 시작할 수 있어!
-    // Page<TodoResponse> todoDtoPage = todoRepository.findAll(pageable).map(this::mapToDto);
-
     List<Book> bookList = bookPage.getContent();
 
     List<BookDTO> content = bookList.stream().map(this::toDTO).collect(Collectors.toList());
 
     return PageResponse.builder()
-        .content(content)	// todoDtoPage.getContent()
+        .content(content)
         .pageNo(pageNo)
         .pageSize(pageSize)
         .totalElements(bookPage.getTotalElements())

@@ -42,8 +42,20 @@ public interface BookService {
    */
   void deleteBook(long id);
 
+  /**
+   * 책 검색
+   * @param title
+   * @return 검색 책 정보
+   */
   List<BookDTO> searchBook(String title);
 
+  /**
+   * 페이지네이션
+   * @param pageNo
+   * @param pageSize
+   * @param sortBy
+   * @return 페이지번호, 화면에 비출 양, 정렬
+   */
   PageResponse searchAllPaging(int pageNo, int pageSize, String sortBy);
 
   // entity -> dto
